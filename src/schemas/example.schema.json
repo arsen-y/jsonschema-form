@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["streetAddress", "city", "state"],
+  "properties": {
+    "streetAddress": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "errorMessage": {
+        "minLength": "Введите адрес",
+        "maxLength": "Адрес слишком длинный (макс. 255)"
+      },
+      "examples": ["ул. Ленина, 10", "Prospekt Mira 12, apt 34"]
+    },
+    "city": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "errorMessage": {
+        "minLength": "Укажите город",
+        "maxLength": "Слишком длинное название города (макс. 100)"
+      },
+      "examples": ["Москва", "Berlin"]
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "errorMessage": {
+        "minLength": "Укажите регион/штат",
+        "maxLength": "Слишком длинное название региона (макс. 100)"
+      },
+      "examples": ["Московская область", "Bavaria"]
+    },
+    "gender": {
+      "enum": ["male", "female", "else"],
+      "errorMessage": {
+        "enum": "Выберите один из вариантов"
+      }
+    },
+    "phones": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 999999999999,
+        "errorMessage": {
+          "type": "Номер должен быть целым числом",
+          "minimum": "Номер не может быть отрицательным",
+          "maximum": "Номер слишком длинный"
+        }
+      },
+      "errorMessage": {
+        "minItems": "Добавьте хотя бы один телефон",
+        "maxItems": "Не более 3 телефонов",
+        "uniqueItems": "Номера телефонов не должны повторяться"
+      },
+      "examples": [[79001234567, 380441112233]]
+    },
+    "parents": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "enum": ["mother", "father"],
+            "errorMessage": {
+              "enum": "Только mother или father"
+            }
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 120,
+            "errorMessage": {
+              "type": "Возраст должен быть целым",
+              "minimum": "Возраст не может быть отрицательным",
+              "maximum": "Возраст слишком большой (макс. 120)"
+            }
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "errorMessage": {
+              "maxLength": "Имя слишком длинное (макс. 100)"
+            }
+          },
+          "secondName": {
+            "type": "string",
+            "maxLength": 100,
+            "errorMessage": {
+              "maxLength": "Фамилия слишком длинная (макс. 100)"
+            }
+          },
+          "grandFather": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 100,
+                "errorMessage": {
+                  "maxLength": "Имя слишком длинное (макс. 100)"
+                }
+              },
+              "age": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 130,
+                "errorMessage": {
+                  "type": "Возраст должен быть целым",
+                  "minimum": "Возраст не может быть отрицательным",
+                  "maximum": "Возраст слишком большой (макс. 130)"
+                }
+              },
+              "secondName": {
+                "type": "string",
+                "maxLength": 100,
+                "errorMessage": {
+                  "maxLength": "Фамилия слишком длинная (макс. 100)"
+                }
+              },
+              "retired": { "type": "boolean" }
+            }
+          },
+          "grandMother": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 100,
+                "errorMessage": {
+                  "maxLength": "Имя слишком длинное (макс. 100)"
+                }
+              },
+              "age": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 130,
+                "errorMessage": {
+                  "type": "Возраст должен быть целым",
+                  "minimum": "Возраст не может быть отрицательным",
+                  "maximum": "Возраст слишком большой (макс. 130)"
+                }
+              },
+              "secondName": {
+                "type": "string",
+                "maxLength": 100,
+                "errorMessage": {
+                  "maxLength": "Фамилия слишком длинная (макс. 100)"
+                }
+              },
+              "retired": { "type": "boolean" }
+            }
+          }
+        }
+      },
+      "errorMessage": {
+        "maxItems": "Не более двух записей о родителях"
+      }
+    }
+  },
+  "errorMessage": {
+    "required": {
+      "streetAddress": "Введите адрес",
+      "city": "Укажите город",
+      "state": "Укажите регион/штат"
+    }
+  }
+}
